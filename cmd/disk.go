@@ -1,8 +1,10 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"fmt"
+
+	"github.com/shirou/gopsutil/disk"
+	"github.com/spf13/cobra"
 )
 
 var diskCmd = &cobra.Command{
@@ -14,7 +16,16 @@ var diskCmd = &cobra.Command{
 }
 
 func diskStats(){
-	fmt.Println("Disk Statistics")
+	paritionStats,err :=disk.Partitions(); 
+	if err != nil {
+		fmt.Println("Error getting disk partitions:", err)
+		return
+	}
+	fmt.Println("Device | Mountpoint | Fstype | Opts")
+	for _, partition := range paritionStats {
+		fmt.Printf("%s | %s | %s | %s\n", partition.Device, partition.Mountpoint, partition.Fstype, partition.Opts)
+	}
+	
 }
 func init() {
     rootCmd.AddCommand(diskCmd)

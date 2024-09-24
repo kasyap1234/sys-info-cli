@@ -15,8 +15,12 @@ var ramCmd = &cobra.Command{
 
 func ramStats() {
     v, _ := mem.VirtualMemory()
-    fmt.Printf("Total: %v, Used: %v, Free: %v, Used Percentage: %f%%\n", v.Total, v.Used, v.Free, v.UsedPercent)
+    totalGB := float64(v.Total) / (1024 * 1024 * 1024)
+    usedGB := float64(v.Used) / (1024 * 1024 * 1024)
+    freeGB := float64(v.Free) / (1024 * 1024 * 1024)
+    fmt.Printf("Total: %.2f GB, Used: %.2f GB, Free: %.2f GB, Used Percentage: %.2f%%\n", totalGB, usedGB, freeGB, v.UsedPercent)
 }
+
 func init() {
     rootCmd.AddCommand(ramCmd)
 }
