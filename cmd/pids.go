@@ -44,6 +44,7 @@ func existsPid(args []string){
 
 }
 
+
 func running (){
 
 	runningPids ,err :=process.Pids()
