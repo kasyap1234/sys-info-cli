@@ -15,18 +15,18 @@ var diskCmd = &cobra.Command{
     },
 }
 
-func diskStats(){
-	paritionStats,err :=disk.Partitions(); 
+func diskStats() {
+	partitionStats, err := disk.Partitions(true)
 	if err != nil {
 		fmt.Println("Error getting disk partitions:", err)
 		return
 	}
 	fmt.Println("Device | Mountpoint | Fstype | Opts")
-	for _, partition := range paritionStats {
+	for _, partition := range partitionStats {
 		fmt.Printf("%s | %s | %s | %s\n", partition.Device, partition.Mountpoint, partition.Fstype, partition.Opts)
 	}
-	
 }
+
 func init() {
     rootCmd.AddCommand(diskCmd)
 }
