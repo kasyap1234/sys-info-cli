@@ -16,8 +16,9 @@ func cpuStats() {
     percent, _ := cpu.Percent(0, false)
 	cpuInfo, _ := cpu.Info()
 	fmt.Printf("CPU Model: %s\n", cpuInfo[0].ModelName)
-	fmt.Printf("CPU Cores: %d\n", cpuInfo[0].Cores)
-	fmt.Printf("CPU Frequency: %f GHz\n", cpuInfo[0].Mhz/1000)
-	fmt.Printf("Cpu Family: %s\n", cpuInfo[0].Family)
+	fmt.Printf("CPU Info: %d\n", cpuInfo[0].CPU)
     fmt.Printf("CPU Usage: %f%%\n", percent[0])
+}
+func init () {
+    rootCmd.AddCommand(cpuCmd)
 }
