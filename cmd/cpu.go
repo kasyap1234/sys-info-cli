@@ -44,7 +44,7 @@ func CpuStats() {
     
     cpuUsage, err := cpu.Percent(10, false)
     if err != nil {
-        fmt.Println("Error getting CPU usage:", err)
+        color.Red("Error getting CPU usage:", err)
         return
     }
 
@@ -54,12 +54,12 @@ func CpuStats() {
     // Get CPU information
     cpuInformation, err := cpu.Info()
     if err != nil {
-        fmt.Println("Error getting CPU information:", err)
+        color.Red("Error getting CPU information:", err)
         return
     }
 
     // Print CPU information
-    fmt.Println("CPU Information:")
+    color.HiWhiteString("CPU Information:")
     for _, info := range cpuInformation {
         color.Cyan("  CPU %d:", info.CPU)
         color.Cyan("    Vendor ID: %s\n", info.VendorID)
