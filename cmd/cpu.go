@@ -4,8 +4,28 @@ import (
     "fmt"
     "github.com/shirou/gopsutil/v3/cpu"
     "github.com/spf13/cobra"
+    "github.com/prometheus/procfs"
 )
-
+func procsFunc() {
+    procs, err := procfs.Self()
+    if err != nil {
+        fmt.Println("Error getting process information:", err)
+        return
+    }
+    stat, err := procs.Stat()
+    if err != nil {
+        fmt.Println("Error getting process information:", err)
+        return
+    }
+    fmt.Printf("cpu time: %.2f\n", stat.CPUTime())
+}
+var procsCpuCmd = &cobra.Command{
+    Use:   "procs",
+    Short: "Get CPU statistics",
+    Run: func(cmd *cobra.Command, args []string) {
+        procsFunc()
+    },
+}
 var cpuCmd = &cobra.Command{
     Use:   "cpu",
     Short: "Get CPU statistics",
@@ -52,4 +72,6 @@ func CpuStats() {
 
 func init() {
     rootCmd.AddCommand(cpuCmd)
+    rootCmd.AddCommand(procsCpuCmd)
+    
 }

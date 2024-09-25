@@ -3,6 +3,7 @@ module github.com/kasyap1234/sysinfoCLI
 go 1.23.1
 
 require (
+	github.com/prometheus/procfs v0.15.1
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/spf13/cobra v1.8.1
