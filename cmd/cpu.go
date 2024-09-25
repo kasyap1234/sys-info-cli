@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-
 	
+
 	"github.com/fatih/color"
 
 	"github.com/prometheus/procfs"
@@ -41,6 +41,7 @@ var cpuCmd = &cobra.Command{
 
 func CpuStats() {
     // Get CPU usage percentage
+    
     cpuUsage, err := cpu.Percent(10, false)
     if err != nil {
         fmt.Println("Error getting CPU usage:", err)
@@ -74,7 +75,11 @@ func CpuStats() {
         fmt.Println("  Flags:", info.Flags)
         fmt.Println()
     }
+   
+    fmt.Println("----------------------------------");
+
 }
+
 
 func init() {
     rootCmd.AddCommand(cpuCmd)

@@ -1,6 +1,9 @@
-package cmd 
+package cmd
+
 import (
 	"fmt"
+
+	"github.com/fatih/color"
 	"github.com/shirou/gopsutil/v3/process"
 	"github.com/spf13/cobra"
 )
@@ -15,29 +18,29 @@ var processCmd = &cobra.Command{
 func processStats(){
 	processesList, err := process.Processes()
 	if err !=nil {
-		fmt.Println("Error getting process list:",err); 
+	 color.Red("Error getting process list:",err); 
 		return 
 	}
-	fmt.Println("PID | Name | Status | CPU Usage | Memory Usage")
+	color.Yellow("PID | Name | Status | CPU Usage | Memory Usage")
 	for _, process := range processesList {
 		processName, err := process.Name()
 		if err !=nil {
-			fmt.Println("Error getting process name:", err);
+			color.Red("Error getting process name:", err);
 			continue
 		}
 		processStatus, err := process.Status()
 		if err !=nil {
-			fmt.Println("Error getting process status:", err);
+			color.Red("Error getting process status:", err);
 			continue
 		}
 		cpuUsage, err := process.CPUPercent()
 		if err !=nil {
-			fmt.Println("Error getting CPU usage:", err);
+			color.Red("Error getting CPU usage:", err);
 			continue
 		}
 		memoryUsage, err := process.MemoryInfo()
 		if err !=nil {
-			fmt.Println("Error getting memory usage:", err);
+			color.Red("Error getting memory usage:", err);
 			continue
 		}
 		fmt.Printf("%d | %s | %s | %.2f%% | %d bytes\n", process.Pid, processName, processStatus, cpuUsage, memoryUsage.RSS)
