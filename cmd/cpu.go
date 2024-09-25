@@ -1,23 +1,28 @@
 package cmd
 
 import (
-    "fmt"
-    "github.com/shirou/gopsutil/v3/cpu"
-    "github.com/spf13/cobra"
-    "github.com/prometheus/procfs"
+	"fmt"
+
+	
+	"github.com/fatih/color"
+
+	"github.com/prometheus/procfs"
+	"github.com/shirou/gopsutil/v3/cpu"
+	"github.com/spf13/cobra"
 )
 func procsFunc() {
     procs, err := procfs.Self()
     if err != nil {
-        fmt.Println("Error getting process information:", err)
+        color.Red("Error getting process information:", err)
+
         return
     }
     stat, err := procs.Stat()
     if err != nil {
-        fmt.Println("Error getting process information:", err)
+       color.Red("Error getting process information:", err)
         return
     }
-    fmt.Printf("cpu time: %.2f\n", stat.CPUTime())
+    color.Cyan("cpu time: %.2f\n", stat.CPUTime())
 }
 var procsCpuCmd = &cobra.Command{
     Use:   "procs",
@@ -43,7 +48,7 @@ func CpuStats() {
     }
 
     // Print CPU usage
-    fmt.Printf("CPU Usage: %.2f%%\n", cpuUsage[0])
+    color.Cyan("CPU Usage: %.2f%%\n", cpuUsage[0])
 
     // Get CPU information
     cpuInformation, err := cpu.Info()
@@ -55,16 +60,17 @@ func CpuStats() {
     // Print CPU information
     fmt.Println("CPU Information:")
     for _, info := range cpuInformation {
-        fmt.Printf("  Model: %s\n", info.ModelName)
-        fmt.Printf("  Vendor ID: %s\n", info.VendorID)
-        fmt.Printf("  CPU Family: %s\n", info.Family)
-        fmt.Printf("  CPU Model: %s\n", info.Model)
-        fmt.Printf("  CPU Stepping: %d\n", info.Stepping)
-        fmt.Printf("  Physical ID: %s\n", info.PhysicalID)
-        fmt.Printf("  Core ID: %s\n", info.CoreID)
-        fmt.Printf("  Cores: %d\n", info.Cores)
-        fmt.Printf("  Max MHz: %.2f MHz\n", info.Mhz)
-        fmt.Printf("  Cache Size: %d KB\n", info.CacheSize)
+        color.Cyan("  CPU %d:", info.CPU)
+        color.Cyan("    Vendor ID: %s\n", info.VendorID)
+        color.Cyan("  Vendor ID: %s\n", info.VendorID)
+        color.Cyan("  CPU Family: %s\n", info.Family)
+        color.Cyan("  CPU Model: %s\n", info.Model)
+        color.Cyan("  CPU Stepping: %d\n", info.Stepping)
+        color.Cyan("  Physical ID: %s\n", info.PhysicalID)
+        color.Cyan("  Core ID: %s\n", info.CoreID)
+        color.Cyan("  Cores: %d\n", info.Cores)
+        color.Cyan("  Max MHz: %.2f MHz\n", info.Mhz)
+        color.Cyan("  Cache Size: %d KB\n", info.CacheSize)
         fmt.Println("  Flags:", info.Flags)
         fmt.Println()
     }
@@ -73,5 +79,5 @@ func CpuStats() {
 func init() {
     rootCmd.AddCommand(cpuCmd)
     rootCmd.AddCommand(procsCpuCmd)
-    
+
 }
