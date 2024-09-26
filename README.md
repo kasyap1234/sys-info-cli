@@ -22,7 +22,7 @@ To install sys-info-cli, follow these steps:
 
 
 README.md
-git clone https://github.com/yourusername/sys-info-cli.git
+git clone https://github.com/kasyap1234/sys-info-cli.git
 
 3. Navigate to the project directory:
 
