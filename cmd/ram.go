@@ -92,7 +92,10 @@ func ramCSV(directory string) error {
 		color.Green("CSV file updated successfully.")
 
 	}
+	
+	return nil 
 }
+
 
 func init() {
 	rootCmd.AddCommand(ramCmd)
